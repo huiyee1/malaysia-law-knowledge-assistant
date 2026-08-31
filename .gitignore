@@ -1,0 +1,23 @@
+# Source corpus — 12.4 GB of government PDFs.
+# Re-downloadable from lom.agc.gov.my with download_lom.py --all
+pdfs/
+download.log
+
+# Build artefacts — regenerate with build_corpus.py, then ingest.py
+corpus/sections.jsonl
+corpus/acts/
+corpus/store.json
+
+# Kept deliberately: corpus/report.txt and corpus/skipped.csv are small and
+# record which Acts were skipped and why.
+
+# Secrets and environment
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/

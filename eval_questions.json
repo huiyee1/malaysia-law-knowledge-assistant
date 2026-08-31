@@ -1,0 +1,184 @@
+[
+  {
+    "id": "annual-leave-3yr",
+    "mode": "cite",
+    "q": "I have worked at my company for 3 years. How much annual leave do I get?",
+    "expect_act": "265",
+    "expect_section": "60E",
+    "expect_text": ["12", "twelve"],
+    "why": "Employment Act s.60E(1)(b) - 12 days for 2 to under 5 years."
+  },
+  {
+    "id": "notice-period",
+    "mode": "cite",
+    "q": "What notice must my employer give before terminating my contract?",
+    "expect_act": "265",
+    "expect_section": "12",
+    "expect_text": ["four", "4"],
+    "why": "Employment Act s.12(2) - 4/6/8 weeks by length of service. Accept digits or words."
+  },
+  {
+    "id": "maternity-leave",
+    "mode": "cite",
+    "q": "How much maternity leave am I entitled to?",
+    "expect_act": "265",
+    "expect_section": "37",
+    "expect_text": ["98", "ninety-eight"],
+    "why": "Employment Act s.37 - 98 consecutive days."
+  },
+  {
+    "id": "sick-leave",
+    "mode": "cite",
+    "q": "How many days of paid sick leave can I take in a year?",
+    "expect_act": "265",
+    "expect_section": "60F",
+    "expect_text": [],
+    "why": "Employment Act s.60F - graduated by length of service."
+  },
+  {
+    "id": "retirement-age",
+    "mode": "cite",
+    "q": "At what age can my employer force me to retire?",
+    "expect_act": "753",
+    "expect_section": "4",
+    "expect_text": ["60", "sixty"],
+    "why": "Minimum Retirement Age Act 2012 s.4 - 60 years."
+  },
+  {
+    "id": "union-recognition",
+    "mode": "cite",
+    "q": "How does a trade union get recognised by an employer?",
+    "expect_act": "177",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Industrial Relations Act 1967, recognition provisions."
+  },
+  {
+    "id": "moneylender-licence",
+    "mode": "cite",
+    "q": "Does someone need a licence to lend money as a business?",
+    "expect_act": "400",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Moneylenders Act 1951."
+  },
+  {
+    "id": "pdpa-consent",
+    "mode": "cite",
+    "q": "Can a company process my personal data without asking me first?",
+    "expect_act": "709",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Personal Data Protection Act 2010."
+  },
+  {
+    "id": "company-director-duty",
+    "mode": "cite",
+    "q": "What duties does a company director owe to the company?",
+    "expect_act": "777",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Companies Act 2016."
+  },
+  {
+    "id": "land-acquisition-compensation",
+    "mode": "cite",
+    "q": "If the government takes my land, how is compensation decided?",
+    "expect_act": "486",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Land Acquisition Act 1960."
+  },
+
+  {
+    "id": "refuse-caselaw",
+    "mode": "refuse",
+    "q": "What did the Federal Court decide about constructive dismissal in 2019?",
+    "why": "Case law is not in the corpus at all."
+  },
+  {
+    "id": "refuse-minimum-wage",
+    "mode": "refuse",
+    "q": "What is the current minimum wage in Malaysia?",
+    "why": "Set by a Minimum Wages Order (subsidiary legislation), not a principal Act."
+  },
+  {
+    "id": "epf-contribution",
+    "mode": "cite",
+    "q": "What must my employer contribute to my EPF each month?",
+    "expect_act": "452",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "EPF Act 1991 IS indexed at full corpus size, so answering is correct. Was a refuse case when only 2 Acts existed."
+  },
+  {
+    "id": "socso-coverage",
+    "mode": "cite",
+    "q": "Am I covered by SOCSO if I am injured travelling to work?",
+    "expect_act": "4",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Employees' Social Security Act 1969 IS indexed. Refusing here is a false refusal."
+  },
+  {
+    "id": "refuse-syariah-state",
+    "mode": "refuse",
+    "q": "What are the grounds for divorce under Selangor Syariah law?",
+    "why": "State enactments are outside a federal-Acts corpus."
+  },
+  {
+    "id": "refuse-contracts-act",
+    "mode": "refuse",
+    "q": "Under the Contracts Act 1950, what makes an agreement void?",
+    "why": "Contracts Act 1950 is only published as a scan; not in the corpus."
+  },
+  {
+    "id": "stamp-duty-instrument",
+    "mode": "cite",
+    "q": "Which documents are chargeable with stamp duty?",
+    "expect_act": "378",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Stamp Act 1949 IS indexed. The rates live in subsidiary legislation, but the charging provisions do not."
+  },
+  {
+    "id": "refuse-foreign-law",
+    "mode": "refuse",
+    "q": "Under Singapore's Employment Act, how much notice must an employer give?",
+    "why": "Foreign law. Definitively absent, and semantically adjacent enough that retrieval will offer Malaysian employment provisions as neighbours."
+  },
+  {
+    "id": "refuse-future-amendment",
+    "mode": "refuse",
+    "q": "What changes did the 2027 amendment to the Employment Act make?",
+    "why": "Does not exist. Tests whether it invents an amendment rather than declining."
+  },
+
+  {
+    "id": "cross-act-notice-tenancy",
+    "mode": "cite",
+    "q": "My employer gave me two weeks notice. Is that enough?",
+    "expect_act": "265",
+    "expect_section": "12",
+    "expect_text": [],
+    "why": "Cross-act trap: 'notice' appears across many Acts; must land on employment."
+  },
+  {
+    "id": "cross-act-termination-company",
+    "mode": "cite",
+    "q": "Can I be dismissed without a reason being given?",
+    "expect_act": "177",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Cross-act trap: should reach Industrial Relations, not company law."
+  },
+  {
+    "id": "cross-act-registration",
+    "mode": "cite",
+    "q": "How do I register a trade union?",
+    "expect_act": "262",
+    "expect_section": null,
+    "expect_text": [],
+    "why": "Cross-act trap: 'registration' appears in hundreds of Acts."
+  }
+]

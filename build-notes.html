@@ -1,0 +1,738 @@
+<title>Malaysia Law Assistant</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground:      #F4F6F8;
+    --surface:     #FFFFFF;
+    --surface-alt: #ECEFF3;
+    --ink:         #161A24;
+    --ink-soft:    #3D4554;
+    --muted:       #626B7C;
+    --rule:        #D8DDE5;
+    --rule-soft:   #E6EAF0;
+    --primary:     #1F3A6E;
+    --primary-ink: #FFFFFF;
+    --accent:      #9C6519;
+    --accent-bg:   #F6EEE1;
+    --good:        #2C6F52;
+    --good-bg:     #E4EFE9;
+    --bad:         #9E322C;
+    --bad-bg:      #F5E4E2;
+    --shadow:      0 1px 2px rgba(22, 26, 36, .05), 0 8px 24px -12px rgba(22, 26, 36, .18);
+
+    --display: "Newsreader", Georgia, "Times New Roman", serif;
+    --body:    "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:    "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+    --measure: 68ch;
+    --pad: clamp(1.15rem, 4vw, 2.6rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #0E1116;
+      --surface:     #161A21;
+      --surface-alt: #1D222B;
+      --ink:         #E4E8EF;
+      --ink-soft:    #BFC6D2;
+      --muted:       #8D96A6;
+      --rule:        #29303B;
+      --rule-soft:   #21272F;
+      --primary:     #8AACE6;
+      --primary-ink: #0E1116;
+      --accent:      #D9A25C;
+      --accent-bg:   #2A2114;
+      --good:        #6FC49B;
+      --good-bg:     #14241D;
+      --bad:         #E08A83;
+      --bad-bg:      #2A1917;
+      --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #0E1116;
+    --surface:     #161A21;
+    --surface-alt: #1D222B;
+    --ink:         #E4E8EF;
+    --ink-soft:    #BFC6D2;
+    --muted:       #8D96A6;
+    --rule:        #29303B;
+    --rule-soft:   #21272F;
+    --primary:     #8AACE6;
+    --primary-ink: #0E1116;
+    --accent:      #D9A25C;
+    --accent-bg:   #2A2114;
+    --good:        #6FC49B;
+    --good-bg:     #14241D;
+    --bad:         #E08A83;
+    --bad-bg:      #2A1917;
+    --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 0 var(--pad) 5rem;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding: clamp(2.5rem, 7vw, 4.5rem) 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .eyebrow {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(2.3rem, 6.5vw, 3.6rem);
+    line-height: 1.08;
+    letter-spacing: -.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-family: var(--display);
+    font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 48ch;
+    margin: 0;
+  }
+
+  /* ---------- stat strip ---------- */
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: .6rem;
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: .95rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: .18rem;
+  }
+
+  .stat b {
+    font-family: var(--display);
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.01em;
+  }
+
+  .stat span {
+    font-size: .74rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { padding-top: 3.2rem; }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 3.6vw, 1.95rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -.012em;
+    margin: 0 0 .35rem;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-family: var(--body);
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    margin: 2rem 0 .5rem;
+  }
+
+  .lede {
+    color: var(--muted);
+    max-width: var(--measure);
+    margin: 0 0 1.6rem;
+    font-size: .98rem;
+  }
+
+  p { max-width: var(--measure); }
+
+  a { color: var(--primary); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: .855em;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule-soft);
+    border-radius: 3px;
+    padding: .1em .35em;
+  }
+
+  /* ---------- pipeline ---------- */
+
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 .5rem;
+  }
+
+  .stage {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.15rem 1.2rem 1.3rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    position: relative;
+  }
+
+  .stage-head {
+    display: flex;
+    align-items: baseline;
+    gap: .55rem;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: .6rem;
+  }
+
+  .stage-num {
+    font-family: var(--mono);
+    font-size: .75rem;
+    font-weight: 500;
+    color: var(--primary-ink);
+    background: var(--primary);
+    border-radius: 2px;
+    padding: .12rem .4rem;
+    line-height: 1.35;
+  }
+
+  .stage-head b { font-size: .95rem; letter-spacing: -.005em; }
+
+  .stage-head em {
+    margin-left: auto;
+    font-style: normal;
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .42rem;
+    font-size: .875rem;
+    color: var(--ink-soft);
+  }
+
+  .flow li { display: flex; gap: .5rem; align-items: baseline; }
+
+  .flow li::before {
+    content: "";
+    flex: none;
+    width: 5px; height: 5px;
+    margin-top: .5em;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .flow .out {
+    margin-top: .2rem;
+    padding-top: .55rem;
+    border-top: 1px dashed var(--rule);
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--primary);
+  }
+  .flow .out::before { display: none; }
+
+  /* ---------- rationale ---------- */
+
+  .why {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 1.4rem;
+  }
+
+  .why > div {
+    border-bottom: 1px solid var(--rule);
+    padding: 1.25rem 0;
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: .4rem 2.2rem;
+    align-items: start;
+  }
+
+  @media (max-width: 40rem) {
+    .why > div { grid-template-columns: 1fr; gap: .35rem; }
+  }
+
+  .why dt {
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.45;
+  }
+
+  .why dd { margin: 0; color: var(--ink-soft); font-size: .93rem; }
+  .why dd + dd { margin-top: .5rem; }
+
+  .verdict {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .12rem .45rem;
+    border-radius: 2px;
+    margin-top: .45rem;
+    background: var(--accent-bg);
+    color: var(--accent);
+  }
+
+  /* ---------- steps ---------- */
+
+  ol.steps { list-style: none; margin: 1.4rem 0 0; padding: 0; counter-reset: s; }
+
+  ol.steps > li {
+    counter-increment: s;
+    position: relative;
+    padding: 0 0 1.9rem 3.1rem;
+    border-left: 1px solid var(--rule);
+    margin-left: .85rem;
+  }
+
+  ol.steps > li:last-child { border-left-color: transparent; padding-bottom: .4rem; }
+
+  ol.steps > li::before {
+    content: counter(s);
+    position: absolute;
+    left: -.85rem;
+    top: -.1rem;
+    width: 1.7rem; height: 1.7rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    color: var(--primary);
+    font-family: var(--mono);
+    font-size: .78rem;
+    font-weight: 500;
+  }
+
+  ol.steps h3 { margin: 0 0 .3rem; font-size: 1rem; }
+  ol.steps p { margin: 0 0 .7rem; font-size: .93rem; color: var(--ink-soft); }
+
+  pre {
+    margin: .55rem 0;
+    background: var(--surface-alt);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--primary);
+    border-radius: 3px;
+    padding: .7rem .9rem;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: .8rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
+  .note {
+    font-size: .85rem;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: .8rem;
+    margin: .7rem 0 0;
+  }
+
+  /* ---------- tables ---------- */
+
+  .scroll { overflow-x: auto; margin: 1.3rem 0 0; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+
+  table { border-collapse: collapse; width: 100%; min-width: 40rem; font-size: .88rem; }
+
+  th {
+    text-align: left;
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: .7rem .95rem;
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface-alt);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: .8rem .95rem;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+    color: var(--ink-soft);
+  }
+
+  tr:last-child td { border-bottom: 0; }
+  td b { color: var(--ink); font-weight: 600; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; font-family: var(--mono); font-size: .82rem; }
+
+  .chip {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: .15rem .45rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .chip.sev { background: var(--bad-bg); color: var(--bad); }
+  .chip.fix { background: var(--good-bg); color: var(--good); }
+
+  /* ---------- limits ---------- */
+
+  .limits { list-style: none; margin: 1.3rem 0 0; padding: 0; display: grid; gap: .85rem; }
+
+  .limits li {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 2px solid var(--bad);
+    border-radius: 3px;
+    padding: .85rem 1rem;
+    font-size: .92rem;
+    color: var(--ink-soft);
+  }
+
+  .limits b { color: var(--ink); }
+
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule);
+    font-size: .84rem;
+    color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Build notes &middot; retrieval-grounded legal research</div>
+    <h1>Malaysia Law Assistant</h1>
+    <p class="standfirst">A chatbot that answers questions about Malaysian federal law by reading the statute book — and refuses when the answer isn't in it.</p>
+    <div class="stats">
+      <div class="stat"><b>976</b><span>Acts parsed</span></div>
+      <div class="stat"><b>709</b><span>Acts indexed</span></div>
+      <div class="stat"><b>32,387</b><span>Sections live</span></div>
+      <div class="stat"><b>22/22</b><span>Eval passing</span></div>
+      <div class="stat"><b>$1.41</b><span>Index cost</span></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>The basis</h2>
+    <p class="lede">Why retrieval, and not just a good prompt.</p>
+    <p>Ask any general model about Malaysian law and it will produce confident, well-formed, wrong answers — invented section numbers, plausible-sounding case citations, provisions that don't exist. The failure mode isn't ignorance, it's fluency without a source.</p>
+    <p>So the model is never asked to recall Malaysian law. It's given the relevant statute text at question time and told to answer only from that, citing the section. This is retrieval-augmented generation, and for legal work its real value isn't accuracy alone — it's that <b>every claim traces to a section you can go read yourself</b>.</p>
+    <p>That reframes the project. The model is a commodity; the corpus is the work. Roughly 80% of the effort here went into turning 6,532 government PDFs into clean, section-addressable text.</p>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <p class="lede">Three stages. The first runs on your laptop, the second uploads once, the third runs per question.</p>
+
+    <div class="pipeline">
+      <div class="stage">
+        <div class="stage-head"><span class="stage-num">01</span><b>Build</b><em>local</em></div>
+        <ul class="flow">
+          <li>6,532 AGC PDFs (12.4&nbsp;GB)</li>
+          <li>Drop repealed, scanned, superseded</li>
+          <li>Extract text with PyMuPDF</li>
+          <li>Strip TOC, footnotes, running heads</li>
+          <li>Split into individual sections</li>
+          <li class="out">→ sections.jsonl</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="stage-head"><span class="stage-num">02</span><b>Index</b><em>once</em></div>
+        <ul class="flow">
+          <li>Regroup sections by Act</li>
+          <li>Stamp each with its citation header</li>
+          <li>Attach act number as metadata</li>
+          <li>Upload to Gemini File Search</li>
+          <li>Google chunks and embeds it</li>
+          <li class="out">→ File Search store</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="stage-head"><span class="stage-num">03</span><b>Ask</b><em>per question</em></div>
+        <ul class="flow">
+          <li>Question enters the Streamlit UI</li>
+          <li>File Search returns matching sections</li>
+          <li>Gemini reads them under strict rules</li>
+          <li>Answer cites Act and section</li>
+          <li>Refuses when nothing matches</li>
+          <li class="out">→ cited answer</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="stage-head"><span class="stage-num">04</span><b>Check</b><em>after any change</em></div>
+        <ul class="flow">
+          <li>22 questions, answers known in advance</li>
+          <li>Right Act, right section, right figure</li>
+          <li>Refusals for law outside the corpus</li>
+          <li>Cross-act traps on shared vocabulary</li>
+          <li>Diff against the previous run</li>
+          <li class="out">→ pass / fail per case</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Everything runs on your machine except the retrieval store and the model itself. There is no server to deploy and nothing to host.</p>
+  </section>
+
+  <section>
+    <h2>Four decisions that shaped it</h2>
+    <p class="lede">Each of these could have gone the other way. Here's why they didn't.</p>
+
+    <div class="why">
+      <div>
+        <dt>Split by section, not by page</dt>
+        <dd>Default chunking slices text every ~200 tokens on whitespace, cutting subsections in half. Splitting on the Act's own structure means each chunk is a legally coherent unit that carries its own citation.</dd>
+        <dd><span class="verdict">Citations became possible</span></dd>
+      </div>
+      <div>
+        <dt>Index 700&nbsp;MB, not 12.4&nbsp;GB</dt>
+        <dd>Of eight downloaded categories, only <code>updated</code> (current consolidated Acts) is used. <code>revised</code> and <code>translated</code> are ~82% scanned images duplicating content already present. <code>repealed</code> is excluded outright — a system that returns repealed law as current is worse than no system.</dd>
+        <dd><span class="verdict">11.7 GB deliberately unused</span></dd>
+      </div>
+      <div>
+        <dt>Rent the vector database</dt>
+        <dd>Gemini File Search handles storage, chunking, embedding and retrieval. That removes roughly 200 lines of database plumbing and the operational burden that comes with it. The trade is less control over chunking — worked around by pre-splitting sections before upload.</dd>
+        <dd><span class="verdict">Storage free, index once</span></dd>
+      </div>
+      <div>
+        <dt>Put the safety in the prompt, not the code</dt>
+        <dd>The system prompt is the actual product surface. It forbids answering from memory, mandates a section citation per claim, bans advice phrasing, and requires the assistant to declare when a question needs case law or state enactments it doesn't hold.</dd>
+        <dd><span class="verdict">Tune this, not the model</span></dd>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Step by step</h2>
+    <p class="lede">From an empty folder to a running chatbot. Commands assume the Anaconda interpreter, since <code>python</code> isn't on PATH on this machine.</p>
+
+    <ol class="steps">
+      <li>
+        <h3>Get the source documents</h3>
+        <p><code>download_lom.py</code> pulls every federal Act from the Attorney General's Chambers portal at 1 request/second, resumable, writing a manifest as it goes. This produced 6,532 PDFs across eight categories.</p>
+        <pre><code>python download_lom.py --all</code></pre>
+      </li>
+
+      <li>
+        <h3>Install dependencies</h3>
+        <pre><code>pip install -r requirements.txt</code></pre>
+        <p>PyMuPDF for PDF text, google-genai for the API, Streamlit for the interface.</p>
+      </li>
+
+      <li>
+        <h3>Build the corpus</h3>
+        <p>Extract, clean and section-split. Start with <code>--test</code> to check 20 Acts before committing to the full run.</p>
+        <pre><code>python build_corpus.py --test
+python build_corpus.py</code></pre>
+        <p>Produces <code>corpus/sections.jsonl</code> (one record per section), <code>skipped.csv</code> (files needing OCR) and <code>report.txt</code>.</p>
+      </li>
+
+      <li>
+        <h3>Set the API key</h3>
+        <p>Create a key at <a href="https://aistudio.google.com">aistudio.google.com</a>. Use the paid tier before any real user touches this — on the free tier, prompts may be used to improve Google's products, and this app receives people's actual legal problems.</p>
+        <pre><code>setx GEMINI_API_KEY "your-key-here"</code></pre>
+        <p class="note"><code>setx</code> only affects processes started afterwards. Open a new terminal, or the key won't be visible.</p>
+      </li>
+
+      <li>
+        <h3>Index into File Search</h3>
+        <p>Start narrow. Two Acts you can verify by hand is a better first test than 695 you can't.</p>
+        <pre><code>python ingest.py --acts 265,177</code></pre>
+        <p>Resumable via <code>corpus/store.json</code>; already-uploaded Acts are skipped, since indexing is billed per token once.</p>
+      </li>
+
+      <li>
+        <h3>Run it</h3>
+        <pre><code>streamlit run app.py</code></pre>
+        <p>Opens at <code>localhost:8501</code>. The sidebar switches between Plain English and Legal detail, and can scope a question to one Act number.</p>
+      </li>
+
+      <li>
+        <h3>Verify before scaling</h3>
+        <p>Ask 10–15 questions you can check against the printed Act. What matters is not whether the prose reads well — it's whether the <b>cited section number is the section that actually says it</b>. Only then index the rest.</p>
+        <pre><code>python ingest.py</code></pre>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What went wrong</h2>
+    <p class="lede">Every one of these was found by inspecting output, not by reading code. Each produced answers that looked fine.</p>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Defect</th><th>Cause</th><th class="num">Scale</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Sections lost their letter</b><br>s.60E filed under s.60</td>
+            <td>AGC typesets lettered sections lowercase (<code>60e.</code>) <em>and</em> puts a U+2002 EN&nbsp;SPACE after the number. Two independent bugs, one symptom.</td>
+            <td class="num">1,890</td>
+            <td><span class="chip fix">96% fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Table of contents parsed as law</b></td>
+            <td>TOC entries look identical to section starts. Resolved by keeping the longest body per section number.</td>
+            <td class="num">437</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Amendment Acts merged into principal Acts</b></td>
+            <td>Amendment files reuse the principal Act's number, so grouping by number alone would have attributed amendment text to the wrong Act — and every citation from it would be wrong.</td>
+            <td class="num">Act 265</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Titles truncated</b><br>citations named the wrong Act</td>
+            <td>Cover titles wrap across lines. Fixed by frequency — the real title is printed 2–3 times per cover, boilerplate only once.</td>
+            <td class="num">11%</td>
+            <td><span class="chip fix">89% clean</span></td>
+          </tr>
+          <tr>
+            <td><b>Repealed law inside the current folder</b></td>
+            <td>Files named <code>ACT 310 REPEALED BY ACT 364.pdf</code> sit in <code>updated/</code>. Excluded by filename.</td>
+            <td class="num">65</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Upload rejected</b></td>
+            <td>File Search caps chunks at 512 tokens; the config asked for 1000. Long sections now repeat their citation header so continuation chunks stay attributable.</td>
+            <td class="num">13.8%</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Schedules collided with sections</b></td>
+            <td>Schedules restart numbering at 1. Parsed into their own namespace.</td>
+            <td class="num">1,899</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Printer's colophon read as the Act's name</b></td>
+            <td>Some reprints set the printer's imprint in the same caps run as the title, so the Sedition Act came out named after a printing company. The first fix was lazy where it needed to be greedy — it shortened the string and left the bug in.</td>
+            <td class="num">13</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Wrong Act numbers</b></td>
+            <td>Filenames read <code>Act 333_Final.pdf</code>; underscore is a word character, so <code>\bAct\s+(\d+)\b</code> never matched. They fell through to the cover and inherited <code>[Act 1]</code> from the Revision of Laws disclaimer.</td>
+            <td class="num">21</td>
+            <td><span class="chip fix">Fixed</span></td>
+          </tr>
+          <tr>
+            <td><b>Titles missing entirely</b></td>
+            <td>Four causes at once: small-caps typesetting, titles that omit the word "Act", titles present only in the disclaimer prose, and running heads glued on. The disclaimer turned out to be the most reliable source.</td>
+            <td class="num">30</td>
+            <td><span class="chip fix">22 left</span></td>
+          </tr>
+          <tr>
+            <td><b>Constitution unparseable</b></td>
+            <td>The Reprint 2020 interleaves ~130 editorial NOTES blocks with the operative text, each restarting at 1. No pattern separates them reliably.</td>
+            <td class="num">1 file</td>
+            <td><span class="chip sev">Excluded</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">The lettered-section bug is the instructive one. The first fix — allowing lowercase — recovered 299 sections and looked like success. The count only reached zero once the invisible EN&nbsp;SPACE was also handled. A partial fix that improves a metric is the easiest kind of bug to declare solved, and it happened three times here before the pattern registered.</p>
+  </section>
+
+  <section>
+    <h2>Measuring it</h2>
+    <p class="lede">Every fix above looked correct when it was made. Several weren't. That is what the eval is for.</p>
+    <p><code>eval.py</code> runs 22 questions whose answers are known in advance and scores Act number, section number and key figures <em>separately</em>, so a failure says which part broke. It exits non-zero, so it can gate a rebuild.</p>
+    <p>The first baseline run scored 18/21 — and triage found the eval was wrong more often than the system was. Of six failures across two runs, one was a real defect. Two other cases were <b>passing for the wrong reason</b>: they scored green for refusing questions about the EPF Act and SOCSO, but both Acts had since been indexed. The eval was rewarding false refusals — the exact failure it exists to catch. Those cases were written when two Acts were indexed; scaling to 709 silently invalidated them.</p>
+    <p>After the corpus rebuild the same suite runs <b>22/22</b>, with two cases confirmed fixed and no regressions. The value is not the score. It is the diff.</p>
+  </section>
+
+  <section>
+    <h2>What it can't do</h2>
+    <p class="lede">Stated plainly, because a legal tool that hides its gaps is dangerous.</p>
+
+    <ul class="limits">
+      <li><b>No case law.</b> Malaysian judgments are paywalled behind CLJ and LexisNexis. The assistant refuses these questions rather than guessing — verified working.</li>
+      <li><b>No subsidiary legislation, state enactments, or Syariah law.</b> Federal principal Acts only.</li>
+      <li><b>No Federal Constitution.</b> Excluded until its annotation apparatus can be parsed properly.</li>
+      <li><b>No Contracts Act 1950.</b> AGC publishes it only as a scan with no text layer at all. Recovering it needs OCR, not better parsing.</li>
+      <li><b>Acts needing OCR are silently absent</b> — check <code>skipped.csv</code> before assuming coverage of any particular statute.</li>
+      <li><b>Consolidated snapshots, not live law.</b> Amendments after each reprint date aren't reflected. Always verify at <a href="https://lom.agc.gov.my">lom.agc.gov.my</a>.</li>
+      <li><b>It is not a lawyer.</b> The Legal Profession Act 1976 reserves the practice of law to admitted advocates &amp; solicitors. This is positioned as legal <em>information</em>, and the prompt bans advice phrasing — but before letting anyone else use it, talk to a Malaysian lawyer.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Built on Gemini File Search and <code>gemini-3.7-flash</code>. Source documents from the Attorney General's Chambers of Malaysia. Four files do the work: <code>build_corpus.py</code>, <code>ingest.py</code>, <code>app.py</code>, <code>eval.py</code>.
+  </footer>
+
+</div>

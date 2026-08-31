@@ -1,0 +1,11 @@
+PDFs processed      : 2294
+Acts with sections  : 976
+Sections extracted  : 35336
+Schedule items      : 1905
+Avg sections / act  : 36.2
+Skipped             : 1318
+  - already_covered       : 332
+  - needs_ocr             : 871
+  - no_sections_matched   : 28
+  - repealed_in_filename  : 79
+  - unreadable            : 8
