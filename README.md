@@ -1,8 +1,9 @@
-# Malaysia Law Assistant
+# Malaysia Law Knowledge Assistant
 
 A retrieval-augmented chatbot over Malaysian federal legislation. It answers
 questions by reading the statute book — citing the Act and section every time,
-and declining when the answer isn't in the corpus.
+and declining when the answer isn't in the corpus. It is a learning tool for
+Malaysia law.
 
 ![The assistant answering a question about the Anti-Bully Act 2026](chatbot_screenshot.png)
 
